@@ -140,7 +140,7 @@ const Post = ({ post }) => {
             <img
              src={post.image}
              alt="post"
-             className="w-full h-[620px] object-cover"
+             className="w-full aspect-square object-cover"
             />
 
 

@@ -67,7 +67,7 @@ const LeftSidebar = () => {
         { icon: <LogOut />, text: "Logout" },
     ]
     return (
-        <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 px-4 py-6 flex flex-col z-50">
+        <div className="fixed top-0 left-0 h-screen hidden md:flex w-64 bg-white border-r border-gray-200 px-4 py-6 flex flex-col z-50">
             <div className='flex flex-col'>
                 <h1 className="text-3xl font-bold mb-10 px-3 tracking-wide">
                     Chatify

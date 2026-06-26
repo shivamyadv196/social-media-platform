@@ -17,7 +17,9 @@ const Home = () => {
 
                 <Feed />
 
+                <div className="hidden xl:block">
                 <RightSidebar />
+                </div>
 
             </div>
 

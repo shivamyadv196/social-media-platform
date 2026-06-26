@@ -5,7 +5,7 @@ const Feed = () => {
 
     return (
 
-        <div className="w-[630px]">
+        <div className="w-full max-w-[470px]">
 
             <Posts />
 

@@ -10,7 +10,7 @@ const MainLayout = () => {
       <LeftSidebar />
 
       {/* Main */}
-      <div className="ml-64">
+      <div className="md:ml-64">
         <Outlet />
       </div>
 
