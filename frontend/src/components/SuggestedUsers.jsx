@@ -4,70 +4,90 @@ import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const SuggestedUsers = () => {
-
   const { suggestedUsers } = useSelector((store) => store.auth);
 
   return (
     <div>
 
-      <div className="flex justify-between items-center mb-5">
+      {/* Heading */}
 
-        <h1 className="text-sm font-semibold text-gray-500">
+      <div className="flex items-center justify-between mb-5">
+
+        <h2 className="text-sm font-semibold text-gray-500">
           Suggested for you
-        </h1>
+        </h2>
 
-        <span className="text-xs font-semibold cursor-pointer hover:text-gray-500">
+        <button className="text-xs font-semibold hover:text-gray-500">
           See All
-        </span>
+        </button>
 
       </div>
 
+      {/* Users */}
+
       <div className="space-y-5">
 
-        {suggestedUsers?.map((user) => (
+        {suggestedUsers?.length > 0 ? (
 
-          <div
-            key={user._id}
-            className="flex items-center justify-between"
-          >
+          suggestedUsers.map((user) => (
 
-            <div className="flex items-center gap-3">
+            <div
+              key={user._id}
+              className="flex items-center justify-between"
+            >
 
-              <Link to={`/profile/${user._id}`}>
+              <div className="flex items-center gap-3">
 
-                <Avatar className="w-10 h-10">
+                <Link to={`/profile/${user._id}`}>
 
-                  <AvatarImage src={user.profilePicture} />
+                  <Avatar className="w-11 h-11">
 
-                  <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage
+                      src={user.profilePicture}
+                    />
 
-                </Avatar>
+                    <AvatarFallback>
+                      CN
+                    </AvatarFallback>
 
-              </Link>
+                  </Avatar>
 
-              <div>
+                </Link>
 
-                <h1 className="text-sm font-semibold">
-                  {user.username}
-                </h1>
+                <div>
 
-                <p className="text-xs text-gray-500 truncate w-36">
-                  {user.bio || "Suggested for you"}
-                </p>
+                  <Link
+                    to={`/profile/${user._id}`}
+                    className="text-sm font-semibold hover:underline"
+                  >
+                    {user.username}
+                  </Link>
+
+                  <p className="text-xs text-gray-500 truncate w-36">
+                    {user.bio || "Suggested for you"}
+                  </p>
+
+                </div>
 
               </div>
 
+              <button
+                className="text-xs font-semibold text-[#0095F6] hover:text-black transition"
+              >
+                Follow
+              </button>
+
             </div>
 
-            <button
-              className="text-[#0095F6] text-xs font-semibold hover:text-black"
-            >
-              Follow
-            </button>
+          ))
 
-          </div>
+        ) : (
 
-        ))}
+          <p className="text-sm text-gray-400">
+            No suggestions available
+          </p>
+
+        )}
 
       </div>
 

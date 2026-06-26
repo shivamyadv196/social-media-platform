@@ -39,23 +39,36 @@ const ChatPage = () => {
     },[]);
 
     return (
-        <div className='flex ml-[16%] h-screen'>
-            <section className='w-full md:w-1/4 my-8'>
-                <h1 className='font-bold mb-4 px-3 text-xl'>{user?.username}</h1>
-                <hr className='mb-4 border-gray-300' />
-                <div className='overflow-y-auto h-[80vh]'>
+        <div className="flex h-[calc(100vh-1px)] bg-white rounded-xl overflow-hidden border border-gray-200">
+            <section className="w-[360px] border-r border-gray-200 flex flex-col bg-white">
+                
+                <div className="px-6 py-5 border-b border-gray-200">
+
+                     <h1 className="text-2xl font-bold">
+                     {user?.username}
+                      </h1>
+
+                </div>
+
+
+                <div className="flex-1 overflow-y-auto">
                     {
                         suggestedUsers.map((suggestedUser) => {
                             const isOnline = onlineUsers.includes(suggestedUser?._id);
                             return (
-                                <div onClick={() => dispatch(setSelectedUser(suggestedUser))} className='flex gap-3 items-center p-3 hover:bg-gray-50 cursor-pointer'>
-                                    <Avatar className='w-14 h-14'>
+     <div onClick={() => dispatch(setSelectedUser(suggestedUser))} className={`flex items-center gap-3 px-5 py-4 cursor-pointer transition
+                       ${
+                    selectedUser?._id===suggestedUser?._id
+                        ?"bg-gray-100"
+                      :"hover:bg-gray-50"
+                          }`}>
+                                    <Avatar className="w-12 h-12">
                                         <AvatarImage src={suggestedUser?.profilePicture} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     <div className='flex flex-col'>
-                                        <span className='font-medium'>{suggestedUser?.username}</span>
-                                        <span className={`text-xs font-bold ${isOnline ? 'text-green-600' : 'text-red-600'} `}>{isOnline ? 'online' : 'offline'}</span>
+                                        <span className="font-semibold text-sm">{suggestedUser?.username}</span>
+                                        <span className={`text-xs ${isOnline ? 'text-green-600' : 'text-red-600'} `}>{isOnline ? '● Online' : 'Offline'}</span>
                                     </div>
                                 </div>
                             )

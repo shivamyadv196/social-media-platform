@@ -107,15 +107,15 @@ const Post = ({ post }) => {
         }
     }
     return (
-        <div className="w-full bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
-            <div className="flex items-center justify-between px-4 py-3">
+        <div className="w-full bg-white border border-gray-200 rounded-lg overflow-hidden mb-8 shadow-sm">
+            <div className="flex items-center justify-between px-4 py-3 bg-white">
                 <div className="flex items-center gap-3">
-                    <Avatar className="w-10 h-10">
+                    <Avatar className="w-9 h-9 ring-1 ring-gray-200">
                         <AvatarImage src={post.author?.profilePicture} alt="post_image" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div className='flex items-center gap-3'>
-                        <h1 className="font-semibold text-sm">
+                        <h1 className="font-semibold text-[14px] tracking-wide">
                             {post.author?.username}
                         </h1>
                        {user?._id === post.author._id &&  <Badge variant="secondary">Author</Badge>}
@@ -140,12 +140,12 @@ const Post = ({ post }) => {
             <img
              src={post.image}
              alt="post"
-             className="w-full aspect-square object-cover"
+             className="w-full max-h-[620px] object-cover bg-gray-100"
             />
 
 
             <div className="flex items-center justify-between px-4 pt-3">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5 text-gray-800">
                     {
                         liked ? <FaHeart onClick={likeOrDislikeHandler} size={'24'} className='cursor-pointer text-red-600' /> : <FaRegHeart onClick={likeOrDislikeHandler} size={'22px'} className='cursor-pointer hover:text-gray-600' />
                     }
@@ -158,30 +158,48 @@ const Post = ({ post }) => {
                 </div>
                 <Bookmark onClick={bookmarkHandler} className='cursor-pointer hover:text-gray-600' />
             </div>
-            <span className="block px-4 pt-2 font-semibold text-sm">{postLike} likes</span>
-            <p className="px-4 pt-1 pb-2 text-sm leading-6">
-                 <span className="font-semibold mr-2">{post.author?.username}</span>
-                  {post.caption}
-             </p>
+                 <div className="px-4 pt-2">
+                      <span className="font-semibold text-sm">
+                         {postLike} {postLike === 1 ? "like" : "likes"}
+                       </span>
+                 </div>
+    <div className="px-4 py-2 text-sm">
+                <span className="font-semibold mr-2">
+                 {post.author?.username}
+                </span>
+
+                  <span className="text-gray-800">
+                   {post.caption}
+                </span>
+    </div>
             {
                 comment.length > 0 && (
-                    <span onClick={() => {
-                        dispatch(setSelectedPost(post));
-                        setOpen(true);
-                    }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
+            <div className="px-4 pb-2">
+
+                      <button
+                       onClick={() => {
+                     dispatch(setSelectedPost(post));
+                     setOpen(true);
+                }}
+                className="text-sm text-gray-500 hover:text-black transition"
+    >
+                   View all {comment.length} comments
+                   </button>
+
+            </div>
                 )
             }
             <CommentDialog open={open} setOpen={setOpen} />
-            <div className="flex items-center border-t border-gray-200 px-4 py-3 mt-2">
+            <div className="flex items-center border-t border-gray-200 px-4 py-3">
                 <input
                     type="text"
                     placeholder='Add a comment...'
                     value={text}
                     onChange={changeEventHandler}
-                    className="flex-1 outline-none text-sm bg-transparent"
+                    className="flex-1 bg-transparent outline-none text-sm placeholder:text-gray-400"
                 />
                 {
-                    text && <span onClick={commentHandler} className='text-[#3BADF8] cursor-pointer'>Post</span>
+                    text && <span onClick={commentHandler} className="text-[#0095F6] font-semibold cursor-pointer hover:text-blue-700">Post</span>
                 }
 
             </div>

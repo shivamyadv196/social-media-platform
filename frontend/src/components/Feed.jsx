@@ -2,17 +2,16 @@ import React from "react";
 import Posts from "./Posts";
 
 const Feed = () => {
+  return (
+    <div className="w-full max-w-[470px]">
 
-    return (
+      {/* Future Story Section */}
+      {/* <Stories /> */}
 
-        <div className="w-full max-w-[470px]">
+      <Posts />
 
-            <Posts />
-
-        </div>
-
-    );
-
+    </div>
+  );
 };
 
 export default Feed;

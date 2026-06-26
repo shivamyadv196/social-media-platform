@@ -5,15 +5,13 @@ import LeftSidebar from "./LeftSidebar";
 const MainLayout = () => {
   return (
     <div className="min-h-screen bg-[#fafafa]">
-
-      {/* Left Sidebar */}
+      {/* Desktop Sidebar */}
       <LeftSidebar />
 
-      {/* Main */}
-      <div className="md:ml-64">
+      {/* Main Content */}
+      <main className="w-full md:ml-64">
         <Outlet />
-      </div>
-
+      </main>
     </div>
   );
 };

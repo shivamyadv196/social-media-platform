@@ -8,9 +8,9 @@ const RightSidebar = () => {
   const { user } = useSelector((store) => store.auth);
 
   return (
-    <div className="sticky top-8 w-[320px]">
+    <aside className="sticky top-8 w-[300px] hidden xl:block">
 
-      {/* User Card */}
+      {/* User Profile */}
       <div className="flex items-center justify-between mb-8">
 
         <div className="flex items-center gap-3">
@@ -23,23 +23,35 @@ const RightSidebar = () => {
           </Link>
 
           <div>
-            <h1 className="font-semibold text-sm">
-              {user?.username}
-            </h1>
 
-            <p className="text-sm text-gray-500">
-              {user?.bio || "Welcome 👋"}
+            <Link
+              to={`/profile/${user?._id}`}
+              className="font-semibold text-sm hover:underline"
+            >
+              {user?.username}
+            </Link>
+
+            <p className="text-sm text-gray-500 truncate w-40">
+              {user?.bio || "Welcome to Chatify"}
             </p>
 
           </div>
 
         </div>
 
+        <button
+          className="text-xs font-semibold text-[#0095F6] hover:text-black transition"
+        >
+          Switch
+        </button>
+
       </div>
+
+      {/* Suggested Users */}
 
       <SuggestedUsers />
 
-    </div>
+    </aside>
   );
 };
 
