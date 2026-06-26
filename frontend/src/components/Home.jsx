@@ -1,8 +1,7 @@
 import React from "react";
 import Feed from "./Feed";
 import RightSidebar from "./RightSidebar";
-import { Outlet } from "react-router-dom";
-
+import LeftSidebar from "./LeftSidebar";
 import useGetAllPost from "@/hooks/useGetAllPost";
 import useGetSuggestedUsers from "@/hooks/useGetSuggestedUsers";
 
@@ -11,25 +10,23 @@ const Home = () => {
   useGetSuggestedUsers();
 
   return (
-    <>
-      <div className="min-h-screen bg-[#fafafa]">
-        <div className="max-w-[1180px] mx-auto flex justify-center gap-10 px-4 pt-8">
+    <div className="w-full flex justify-center">
+      <div className="flex w-full max-w-6xl items-start justify-between gap-12">
 
-          {/* Feed */}
-          <div className="flex-1 flex justify-center">
-            <Feed />
-          </div>
+        {/* Left Sidebar */}
+        <LeftSidebar />
 
-          {/* Right Sidebar (Desktop Only) */}
-          <div className="hidden xl:block w-[320px]">
-            <RightSidebar />
-          </div>
+        {/* Feed */}
+        <div className="flex-1 flex justify-center ml-10">
+          <Feed />
+        </div>
 
+        {/* Right Sidebar */}
+        <div className="sticky top-5">
+        <RightSidebar />
         </div>
       </div>
-
-      <Outlet />
-    </>
+    </div>
   );
 };
 

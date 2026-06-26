@@ -28,6 +28,7 @@ export const sendMessage = async (req,res) => {
 
         // implement socket io for real time data transfer
         const receiverSocketId = getReceiverSocketId(receiverId);
+        console.log("Receiver Socket ID:", receiverSocketId);
         if(receiverSocketId){
             io.to(receiverSocketId).emit('newMessage', newMessage);
         }

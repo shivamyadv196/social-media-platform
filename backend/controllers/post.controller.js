@@ -33,7 +33,11 @@ export const addNewPost = async (req, res) => {
             await user.save();
         }
 
-        await post.populate({ path: 'author', select: '-password' });
+        await post.populate({
+        path:'author',
+        select:'username profilePicture'
+        });
+        io.emit("newPost", post);
 
         return res.status(201).json({
             message: 'New post added',
@@ -97,6 +101,20 @@ export const likePost = async (req, res) => {
         // like logic started
         await post.updateOne({ $addToSet: { likes: likeKrneWalaUserKiId } });
         await post.save();
+        const updatedPost = await Post.findById(postId)
+            .populate({
+                path: "author",
+                select: "username profilePicture"
+            })
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "author",
+                    select: "username profilePicture"
+                }
+            });
+
+        io.emit("postUpdated", updatedPost);
 
         // implement socket io for real time notification
         const user = await User.findById(likeKrneWalaUserKiId).select('username profilePicture');
@@ -129,6 +147,20 @@ export const dislikePost = async (req, res) => {
         // like logic started
         await post.updateOne({ $pull: { likes: likeKrneWalaUserKiId } });
         await post.save();
+        const updatedPost = await Post.findById(postId)
+            .populate({
+                path: "author",
+                select: "username profilePicture"
+            })
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "author",
+                    select: "username profilePicture"
+                }
+            });
+
+        io.emit("postUpdated", updatedPost);
 
         // implement socket io for real time notification
         const user = await User.findById(likeKrneWalaUserKiId).select('username profilePicture');
@@ -177,6 +209,20 @@ export const addComment = async (req,res) =>{
         
         post.comments.push(comment._id);
         await post.save();
+        const updatedPost = await Post.findById(postId)
+            .populate({
+                path: "author",
+                select: "username profilePicture"
+            })
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "author",
+                    select: "username profilePicture"
+                }
+            });
+
+        io.emit("postUpdated", updatedPost);
 
         return res.status(201).json({
             message:'Comment Added',
@@ -215,7 +261,7 @@ export const deletePost = async (req,res) => {
 
         // delete post
         await Post.findByIdAndDelete(postId);
-
+        io.emit("postDeleted", postId);
         // remove the post id from the user's post
         let user = await User.findById(authorId);
         user.posts = user.posts.filter(id => id.toString() !== postId);

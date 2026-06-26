@@ -1,17 +1,13 @@
-import React from "react";
-import Posts from "./Posts";
+import Posts from './Posts'
 
 const Feed = () => {
   return (
-    <div className="w-full max-w-[470px]">
-
-      {/* Future Story Section */}
-      {/* <Stories /> */}
-
-      <Posts />
-
+    <div className="w-full flex justify-center">
+      <div className="w-full max-w-[550px]">
+        <Posts />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default Feed;
+export default Feed

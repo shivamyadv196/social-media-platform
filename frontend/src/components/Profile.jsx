@@ -24,199 +24,155 @@ const Profile = () => {
 
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : userProfile?.bookmarks;
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 md:px-8 py-10">
-      <div className="flex flex-col gap-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <section className="flex justify-center md:justify-start">
-            <Avatar className="h-40 w-40 ring-4 ring-gray-200">
-              <AvatarImage src={userProfile?.profilePicture} alt="profilephoto" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </section>
+   return (
+            <div className="w-full max-w-2xl mx-auto px-4 sm:px-6">
 
-          <section className="md:col-span-2">
-            <div className="space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-              <h1 className="text-3xl font-light">
-                   {userProfile?.username}
-              </h1>
-                {
-                  isLoggedInUserProfile ? (
-                    <>
-                      <Link to="/account/edit"><Button
-                                variant="secondary"
-                                className="hover:bg-gray-200 h-9 rounded-lg px-4"
-                        >                       Edit profile</Button></Link>
+              <div className="flex flex-col gap-10 py-6">
 
-                        
-                      <Button
-                        variant="secondary"
-                        className="hover:bg-gray-200 h-9 rounded-lg px-4"
-                      >              View archive</Button>
-                      <Button
-                         variant="secondary"
-                         className="hover:bg-gray-200 h-9 rounded-lg px-4"
-                 >        Ad tools</Button>
-                    </>
-                  ) : (
-                    isFollowing ? (
-                      <>
-                        
-                   <Button
-                    variant="secondary"
-                    className="hover:bg-gray-200 h-9 rounded-lg px-4"
-                   >
-                      Unfollow
-                       </Button>
+                {/* TOP SECTION */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
 
-                        <Button
-                    variant="secondary"
-                    className="hover:bg-gray-200 h-9 rounded-lg px-4"
-                 >
-                      Message
-                 </Button>
-                      </>
-                    ) : (
-                      <Button className="bg-[#0095F6] hover:bg-[#1877F2] h-9 rounded-lg px-6">Follow</Button>
-                    )
-                  )
-                }
-              </div>
-              <div className="flex justify-center md:justify-start gap-10 text-center md:text-left">
-                
-          <p>
-                 <span className="font-bold text-lg">
-                   {userProfile?.posts?.length || 0}
-                </span>
-                   <br />
-                  <span className="text-gray-500">
-                     Posts
-                 </span>
-          </p>
+                  {/* AVATAR */}
+                  <section className="flex justify-center sm:justify-end">
+                    <Avatar className="h-24 w-24 sm:h-32 sm:w-32">
+                      <AvatarImage src={userProfile?.profilePicture} />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </section>
 
-                
-               <p>
-                    <span className="font-bold text-lg">
-                   {userProfile?.followers?.length || 0}
-                  </span>
-                  <br />
-                    <span className="text-gray-500">
-                     Followers
-                   </span>
-                </p>
+                  {/* INFO */}
+                  <section>
+                    <div className="flex flex-col gap-4 text-center sm:text-left">
 
+                      {/* USER + BUTTONS */}
+                      <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+                        <span className="font-semibold text-lg">
+                          {userProfile?.username}
+                        </span>
 
-        <p>
-               <span className="font-bold text-lg">
-                   {userProfile?.following?.length || 0}
-               </span>
-                     <br />
-              <span className="text-gray-500">
-                    Following
-              </span>
-        </p>
+                        {isLoggedInUserProfile ? (
+                          <>
+                            <Link to="/account/edit">
+                              <Button variant="secondary" className="h-8">
+                                Edit
+                              </Button>
+                            </Link>
+                            <Button variant="secondary" className="h-8">
+                              Archive
+                            </Button>
+                            <Button variant="secondary" className="h-8">
+                              Tools
+                            </Button>
+                          </>
+                        ) : isFollowing ? (
+                          <>
+                            <Button variant="secondary" className="h-8">
+                              Unfollow
+                            </Button>
+                            <Button variant="secondary" className="h-8">
+                              Message
+                            </Button>
+                          </>
+                        ) : (
+                          <Button className="bg-[#0095F6] h-8">
+                            Follow
+                          </Button>
+                        )}
+                      </div>
 
+                      {/* STATS */}
+                      <div className="flex justify-center sm:justify-start gap-6 text-sm">
+                        <p>
+                          <span className="font-semibold">
+                            {userProfile?.posts?.length || 0}
+                          </span>{" "}
+                          posts
+                        </p>
+                        <p>
+                          <span className="font-semibold">
+                            {userProfile?.followers?.length || 0}
+                          </span>{" "}
+                          followers
+                        </p>
+                        <p>
+                          <span className="font-semibold">
+                            {userProfile?.following?.length || 0}
+                          </span>{" "}
+                          following
+                        </p>
+                      </div>
 
-              </div>
-              <div className="space-y-2">
-                
+                      {/* BIO */}
+                      <div className="flex flex-col gap-1 text-center sm:text-left">
+                        <span className="font-semibold">
+                          {userProfile?.bio || "bio here..."}
+                        </span>
 
-    <h2 className="font-semibold text-lg">
-          {userProfile?.username}
-    </h2>
+                        <Badge className="w-fit mx-auto sm:mx-0">
+                          <AtSign className="w-4 h-4" />
+                          <span className="pl-1">
+                            {userProfile?.username}
+                          </span>
+                        </Badge>
+                      </div>
 
-      <p className="text-gray-700 leading-6">
-           {userProfile?.bio || "No bio available"}
-      </p>
+                    </div>
+                  </section>
+                </div>
 
-          <Badge
-                 className="w-fit rounded-full px-3 py-1"
-                 variant="secondary"
-          > <AtSign /> <span className='pl-1'>{userProfile?.username}</span> </Badge>
-                
+                {/* TABS */}
+                <div className="border-t border-gray-200">
+                  <div className="flex justify-center gap-6 sm:gap-10 text-xs sm:text-sm">
+                    <span
+                      className={`py-3 cursor-pointer ${
+                        activeTab === "posts" ? "font-bold" : ""
+                      }`}
+                      onClick={() => handleTabChange("posts")}
+                    >
+                      POSTS
+                    </span>
 
-                <p className="text-gray-500 text-sm">
-                 📍 India
-               </p>
+                    <span
+                      className={`py-3 cursor-pointer ${
+                        activeTab === "saved" ? "font-bold" : ""
+                      }`}
+                      onClick={() => handleTabChange("saved")}
+                    >
+                      SAVED
+                    </span>
 
-                <p className="text-gray-500 text-sm">
-                💻 Full Stack Developer
-                </p>
+                    <span className="py-3 cursor-pointer">REELS</span>
+                    <span className="py-3 cursor-pointer">TAGS</span>
+                  </div>
 
+                  {/* POSTS GRID */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-[2px]">
+                    {displayedPost?.map((post) => (
+                      <div
+                        key={post?._id}
+                        className="relative group cursor-pointer"
+                      >
+                        <img
+                          src={post.image}
+                          className="w-full aspect-square object-cover"
+                        />
 
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition">
+                          <div className="flex items-center text-white gap-4">
+                            <Heart />
+                            <span>{post?.likes?.length}</span>
+                            <MessageCircle />
+                            <span>{post?.comments?.length}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
               </div>
             </div>
-          </section>
-        </div>
-        <div className="border-t mt-12">
-          <div className="flex justify-center gap-10 uppercase text-xs font-semibold tracking-widest">
-            
-            <span
-                 className={`py-4 border-t-2 cursor-pointer transition ${
-                 activeTab === "posts"
-               ? "border-black text-black"
-               : "border-transparent text-gray-500 hover:text-black"
-                  }`}
-                    onClick={() => handleTabChange("posts")}
-                 >
-                  POSTS
-           </span>
-           
-
-              <span
-                    className={`py-4 border-t-2 cursor-pointer transition ${
-                    activeTab === "saved"
-                     ? "border-black text-black"
-                  : "border-transparent text-gray-500 hover:text-black"
-                  }`}
-                     onClick={() => handleTabChange("saved")}
-                      >
-                      SAVED
-              </span>
-
-
-            
-        <span className="py-4 border-t-2 border-transparent cursor-pointer text-gray-500 hover:text-black transition">
-                      REELS
-                     </span>
-
-           <span className="py-4 border-t-2 border-transparent cursor-pointer text-gray-500 hover:text-black transition">
-             TAGS
-              </span>
-
-
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-1 md:gap-2 mt-8">
-            {
-              displayedPost?.map((post) => {
-                return (
-                  <div
-                      key={post?._id}
-                   className="relative group overflow-hidden rounded-lg bg-gray-100 cursor-pointer"
-                   >
-                    <img src={post.image} alt='postimage' className="w-full aspect-square object-cover duration-300 group-hover:scale-110" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="flex items-center gap-8 text-white text-lg font-semibold">
-                        <button className="flex items-center gap-2 transition hover:scale-110">
-                          <Heart />
-                          <span>{post?.likes.length}</span>
-                        </button>
-                        <button className="flex items-center gap-2 transition hover:scale-110">
-                          <MessageCircle />
-                          <span>{post?.comments.length}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+          );
 }
 
 export default Profile

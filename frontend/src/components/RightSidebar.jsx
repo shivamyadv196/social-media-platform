@@ -8,50 +8,45 @@ const RightSidebar = () => {
   const { user } = useSelector((store) => store.auth);
 
   return (
-    <aside className="sticky top-8 w-[300px] hidden xl:block">
+    <div className="w-80 hidden lg:block">
+      
+      <div className="sticky top-5 space-y-5">
 
-      {/* User Profile */}
-      <div className="flex items-center justify-between mb-8">
-
-        <div className="flex items-center gap-3">
-
-          <Link to={`/profile/${user?._id}`}>
-            <Avatar className="w-14 h-14">
-              <AvatarImage src={user?.profilePicture} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </Link>
-
-          <div>
-
-            <Link
-              to={`/profile/${user?._id}`}
-              className="font-semibold text-sm hover:underline"
-            >
-              {user?.username}
+        {/* User Profile Card */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm">
+          
+          <div className="flex items-center gap-3">
+            
+            <Link to={`/profile/${user?._id}`}>
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={user?.profilePicture} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
             </Link>
 
-            <p className="text-sm text-gray-500 truncate w-40">
-              {user?.bio || "Welcome to Chatify"}
-            </p>
+            <div className="leading-tight">
+              <h1 className="font-semibold text-sm">
+                <Link to={`/profile/${user?._id}`}>
+                  {user?.username}
+                </Link>
+              </h1>
+
+              <span className="text-xs text-gray-500">
+                {user?.bio || "Bio here..."}
+              </span>
+            </div>
 
           </div>
-
         </div>
 
-        <button
-          className="text-xs font-semibold text-[#0095F6] hover:text-black transition"
-        >
-          Switch
-        </button>
+        {/* Suggested Users */}
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm">
+          <SuggestedUsers />
+        </div>
 
       </div>
 
-      {/* Suggested Users */}
-
-      <SuggestedUsers />
-
-    </aside>
+    </div>
   );
 };
 

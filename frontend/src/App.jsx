@@ -9,11 +9,11 @@ import Signup from './components/Signup'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from 'react-redux'
-//import { setSocket } from './redux/socketSlice'
+import { setSocket } from './redux/socketSlice'
 import { setOnlineUsers } from './redux/chatSlice'
 import { setLikeNotification } from './redux/rtnSlice'
 import ProtectedRoutes from './components/ProtectedRoutes'
-
+import { addPost, updatePost, deletePost } from './redux/postSlice';
 
 const browserRouter = createBrowserRouter([
   {
@@ -49,40 +49,51 @@ const browserRouter = createBrowserRouter([
 ])
 
 function App() {
-  const { user } = useSelector(store => store.auth);
-  const { socket } = useSelector(store => store.socketio);
+  const { user } = useSelector(store => store.auth); 
   const dispatch = useDispatch();
 
   useEffect(() => {
   let socketio;
 
   if (user) {
-    socketio = io("http://localhost:8000", {
-      query: {
-        userId: user._id,
-      },
-      //transports: ["websocket"],
-    });
+  socketio = io("http://localhost:8000", {
+    query: {
+      userId: user._id,
+    },
+  });
 
-    socketio.on("connect", () => {
-      console.log("Connected:", socketio.id);
-    });
+  dispatch(setSocket(socketio));
 
-    socketio.on("getOnlineUsers", (onlineUsers) => {
+  // socketio.on("connect", () => {
+  //   console.log("Connected:", socketio.id);
+  // });
+
+      socketio.on("getOnlineUsers", (onlineUsers) => {
       dispatch(setOnlineUsers(onlineUsers));
     });
 
     socketio.on("notification", (notification) => {
       dispatch(setLikeNotification(notification));
     });
-  }
 
-  return () => {
-    if (socketio) {
-      socketio.close();
-    }
-  };
-}, [user, dispatch]);
+    socketio.on("newPost", (newPost) => {
+      dispatch(addPost(newPost));
+    });
+
+    socketio.on("postUpdated", (updatedPost) => {
+      dispatch(updatePost(updatedPost));
+    });
+
+    socketio.on("postDeleted", (postId) => {
+      dispatch(deletePost(postId));
+    });
+return () => {
+  if (socketio) {
+    socketio.close();
+    dispatch(setSocket(null));
+  }
+};
+}},[user, dispatch]);
 
   return (
     <>

@@ -1,96 +1,58 @@
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const SuggestedUsers = () => {
   const { suggestedUsers } = useSelector((store) => store.auth);
 
   return (
     <div>
+      <h2 className="font-semibold mb-3 text-sm text-gray-700 dark:text-gray-200">
+        Suggested for you
+      </h2>
 
-      {/* Heading */}
-
-      <div className="flex items-center justify-between mb-5">
-
-        <h2 className="text-sm font-semibold text-gray-500">
-          Suggested for you
-        </h2>
-
-        <button className="text-xs font-semibold hover:text-gray-500">
-          See All
-        </button>
-
-      </div>
-
-      {/* Users */}
-
-      <div className="space-y-5">
-
+      <div className="space-y-4">
         {suggestedUsers?.length > 0 ? (
-
           suggestedUsers.map((user) => (
-
             <div
               key={user._id}
               className="flex items-center justify-between"
             >
+              {/* User Info */}
+              <Link
+                to={`/profile/${user._id}`}
+                className="flex items-center gap-3"
+              >
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src={user.profilePicture} />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
 
-              <div className="flex items-center gap-3">
-
-                <Link to={`/profile/${user._id}`}>
-
-                  <Avatar className="w-11 h-11">
-
-                    <AvatarImage
-                      src={user.profilePicture}
-                    />
-
-                    <AvatarFallback>
-                      CN
-                    </AvatarFallback>
-
-                  </Avatar>
-
-                </Link>
-
-                <div>
-
-                  <Link
-                    to={`/profile/${user._id}`}
-                    className="text-sm font-semibold hover:underline"
-                  >
-                    {user.username}
-                  </Link>
-
-                  <p className="text-xs text-gray-500 truncate w-36">
-                    {user.bio || "Suggested for you"}
+                <div className="text-sm leading-tight">
+                  <p className="font-medium">{user.username}</p>
+                  <p className="text-xs text-gray-500">
+                    Suggested for you
                   </p>
-
                 </div>
+              </Link>
 
-              </div>
-
-              <button
-                className="text-xs font-semibold text-[#0095F6] hover:text-black transition"
+              {/* Follow Button */}
+              <Button
+                size="sm"
+                className="text-xs px-3 py-1"
               >
                 Follow
-              </button>
-
+              </Button>
             </div>
-
           ))
-
         ) : (
-
-          <p className="text-sm text-gray-400">
+          <p className="text-xs text-gray-500">
             No suggestions available
           </p>
-
         )}
-
       </div>
-
     </div>
   );
 };
