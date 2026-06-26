@@ -1,22 +1,29 @@
-import React from 'react'
-import Feed from './Feed'
-import { Outlet } from 'react-router-dom'
-import RightSidebar from './RightSidebar'
-import useGetAllPost from '@/hooks/useGetAllPost'
-import useGetSuggestedUsers from '@/hooks/useGetSuggestedUsers'
+import React from "react";
+import Feed from "./Feed";
+import RightSidebar from "./RightSidebar";
+import useGetAllPost from "@/hooks/useGetAllPost";
+import useGetSuggestedUsers from "@/hooks/useGetSuggestedUsers";
 
 const Home = () => {
+
     useGetAllPost();
     useGetSuggestedUsers();
-    return (
-        <div className='flex'>
-            <div className='flex-grow'>
-                <Feed />
-                <Outlet />
-            </div>
-            <RightSidebar />
-        </div>
-    )
-}
 
-export default Home
+    return (
+
+        <div className="flex justify-center">
+
+            <div className="w-full max-w-[1260px] flex justify-between px-10 pt-8">
+
+                <Feed />
+
+                <RightSidebar />
+
+            </div>
+
+        </div>
+
+    );
+};
+
+export default Home;

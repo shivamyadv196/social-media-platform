@@ -1,16 +1,21 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import LeftSidebar from './LeftSidebar'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import LeftSidebar from "./LeftSidebar";
 
 const MainLayout = () => {
   return (
-    <div>
-         <LeftSidebar/>
-        <div>
-            <Outlet/>
-        </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-[#fafafa]">
 
-export default MainLayout
+      {/* Left Sidebar */}
+      <LeftSidebar />
+
+      {/* Main */}
+      <div className="ml-64">
+        <Outlet />
+      </div>
+
+    </div>
+  );
+};
+
+export default MainLayout;

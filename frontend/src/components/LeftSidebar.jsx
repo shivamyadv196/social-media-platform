@@ -57,7 +57,7 @@ const LeftSidebar = () => {
         { icon: <PlusSquare />, text: "Create" },
         {
             icon: (
-                <Avatar className='w-6 h-6'>
+                <Avatar className="w-7 h-7">
                     <AvatarImage src={user?.profilePicture} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
@@ -67,21 +67,32 @@ const LeftSidebar = () => {
         { icon: <LogOut />, text: "Logout" },
     ]
     return (
-        <div className='fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen'>
+        <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r border-gray-200 px-4 py-6 flex flex-col z-50">
             <div className='flex flex-col'>
-                <h1 className='my-8 pl-3 font-bold text-xl'>LOGO</h1>
+                <h1 className="text-3xl font-bold mb-10 px-3 tracking-wide">
+                    Chatify
+               </h1>
                 <div>
                     {
                         sidebarItems.map((item, index) => {
                             return (
-                                <div onClick={() => sidebarHandler(item.text)} key={index} className='flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3'>
+                                <div
+                             key={index}
+                             onClick={() => sidebarHandler(item.text)}
+                             className="flex items-center gap-4 rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:scale-[1.02] relative"
+                                 >
                                     {item.icon}
-                                    <span>{item.text}</span>
+                                    <span className="text-[16px] font-medium">
+                                     {item.text}
+                                    </span>
                                     {
                                         item.text === "Notifications" && likeNotification.length > 0 && (
                                             <Popover>
                                                 <PopoverTrigger asChild>
-                                                    <Button size='icon' className="rounded-full h-5 w-5 bg-red-600 hover:bg-red-600 absolute bottom-6 left-6">{likeNotification.length}</Button>
+                                                    <Button
+                                                    size="icon"
+                                                    className="absolute left-7 top-1 h-5 w-5 rounded-full bg-red-500 hover:bg-red-500 text-white text-[10px]"
+                                                     >                              </Button>
                                                 </PopoverTrigger>
                                                 <PopoverContent>
                                                     <div>
