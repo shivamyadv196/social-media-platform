@@ -39,12 +39,11 @@ const SuggestedUsers = () => {
               </Link>
 
               {/* Follow Button */}
-              <Button
-                size="sm"
-                className="text-xs px-3 py-1"
-              >
-                Follow
-              </Button>
+              <button
+            className="bg-[#0095F6] hover:bg-[#1877F2] text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+                      >
+              Follow
+            </button>
             </div>
           ))
         ) : (
