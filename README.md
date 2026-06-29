@@ -1,4 +1,4 @@
-# 🚀 Chatify
+# Social media platform
 
 A modern social media platform built with the MERN Stack that allows users to share posts, interact through likes and comments, manage profiles, receive notifications, and communicate via real-time messaging.
 
