@@ -1,4 +1,4 @@
-# 🚀 Chatify
+#  Social Media Platform
 
 A modern social media platform built with the MERN Stack featuring real-time messaging, notifications, post sharing, likes, comments, and profile management.
 
@@ -107,16 +107,20 @@ npm run dev
 ## 📸 Screenshots
 
 ### Home Feed
-(Add Screenshot Here)
+<img width="1890" height="990" alt="image" src="https://github.com/user-attachments/assets/4d5d11e2-63eb-46c6-9135-082480741477" />
+
 
 ### User Profile
-(Add Screenshot Here)
+<img width="1918" height="972" alt="image" src="https://github.com/user-attachments/assets/e3de291b-add9-4208-886f-82104d52a125" />
+
 
 ### Real-Time Chat
-(Add Screenshot Here)
+<img width="1910" height="982" alt="image" src="https://github.com/user-attachments/assets/abf8f9b1-3aba-451a-a4ef-f97ce7a282fc" />
+
 
 ### Create Post
-(Add Screenshot Here)
+<img width="641" height="766" alt="image" src="https://github.com/user-attachments/assets/28e01e62-7398-4998-b295-b3a3fa9cbb80" />
+
 
 ## 👨‍💻 Developed By
 
