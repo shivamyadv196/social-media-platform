@@ -1,6 +1,6 @@
 # socia media platform
 
-Chatify is a full-stack social media platform designed to deliver a modern and interactive user experience. The application enables users to connect, share content, engage through likes and comments, manage profiles, receive notifications, and communicate through real-time messaging.
+This is a full-stack social media platform designed to deliver a modern and interactive user experience. The application enables users to connect, share content, engage through likes and comments, manage profiles, receive notifications, and communicate through real-time messaging.
 
 ## Features
 
