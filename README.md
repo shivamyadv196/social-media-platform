@@ -114,12 +114,6 @@ npm run dev
 <img width="1918" height="972" alt="image" src="https://github.com/user-attachments/assets/e3de291b-add9-4208-886f-82104d52a125" />
 
 
-### Real-Time Chat
-<img width="1910" height="982" alt="image" src="https://github.com/user-attachments/assets/abf8f9b1-3aba-451a-a4ef-f97ce7a282fc" />
-
-
-### Create Post
-<img width="641" height="766" alt="image" src="https://github.com/user-attachments/assets/28e01e62-7398-4998-b295-b3a3fa9cbb80" />
 
 
 ## 👨‍💻 Developed By
