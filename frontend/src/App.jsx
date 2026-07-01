@@ -56,7 +56,7 @@ function App() {
   let socketio;
 
   if (user) {
-  socketio = io("http://localhost:8000", {
+  socketio = io(import.meta.env.VITE_API_URL, {
     query: {
       userId: user._id,
     },
