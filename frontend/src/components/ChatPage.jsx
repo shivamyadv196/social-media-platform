@@ -1,171 +1,209 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { setSelectedUser } from "@/redux/authSlice";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { MessageCircleCode } from "lucide-react";
-import Messages from "./Messages";
-import axios from "axios";
-import { setMessages } from "@/redux/chatSlice";
-
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { setSelectedUser } from '@/redux/authSlice';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { MessageCircleCode } from 'lucide-react';
+import Messages from './Messages';
+import axios from 'axios';
+import { setMessages } from '@/redux/chatSlice';
+import { addMessage } from "@/redux/chatSlice";
 const ChatPage = () => {
-  const [textMessage, setTextMessage] = useState("");
+    const [textMessage, setTextMessage] = useState("");
+    const { user, suggestedUsers, selectedUser } = useSelector(store => store.auth);
+    const { onlineUsers, messages } = useSelector(store => store.chat);
+    const dispatch = useDispatch();
 
-  const { user, suggestedUsers, selectedUser } = useSelector(
-    (store) => store.auth
-  );
-
-  const { onlineUsers, messages } = useSelector((store) => store.chat);
-
-  const dispatch = useDispatch();
-
-  const sendMessageHandler = async (receiverId) => {
-    try {
-      if (!receiverId) {
-        console.log("No receiver selected");
-        return;
-      }
-
-      if (!textMessage.trim()) {
-        console.log("Message is empty");
-        return;
-      }
-
-      console.log("API URL:", import.meta.env.VITE_API_URL);
-      console.log("Receiver ID:", receiverId);
-      console.log("Message:", textMessage);
-
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/message/send/${receiverId}`,
-        { textMessage },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
+    const sendMessageHandler = async (receiverId) => {
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/message/send/${receiverId}`, { textMessage }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            });
+            if (res.data.success) {
+                dispatch(addMessage(res.data.newMessage));
+                setTextMessage("");
+            }
+        } catch (error) {
+            console.log(error);
         }
-      );
-
-      console.log("Response:", res.data);
-
-      if (res.data.success) {
-        dispatch(setMessages([...messages, res.data.newMessage]));
-        setTextMessage("");
-      }
-    } catch (error) {
-      console.log(
-        "Send Error:",
-        error?.response?.data || error.message || error
-      );
     }
-  };
 
-  useEffect(() => {
-    return () => {
-      dispatch(setSelectedUser(null));
-    };
-  }, [dispatch]);
+    useEffect(() => {
+        return () => {
+            dispatch(setSelectedUser(null));
+        }
+    },[]);
 
-  return (
-    <div className="flex flex-col md:flex-row h-[100vh] w-full md:ml-[16%] overflow-hidden">
-      {/* LEFT SIDEBAR */}
-      <section className="w-full md:w-1/4 md:my-8 border-b md:border-b-0 md:border-r border-gray-300">
-        <h1 className="font-bold mb-4 px-3 text-xl pt-4 md:pt-0">
-          {user?.username}
-        </h1>
+   return (
+    <div className="flex w-full h-[calc(100vh-60px)] max-w-7xl mx-auto overflow-hidden border rounded-xl shadow bg-white">
 
-        <hr className="mb-4 border-gray-300 hidden md:block" />
+        {/* LEFT SIDEBAR */}
+        <section
+            className={`
+                ${selectedUser ? "hidden md:flex" : "flex"}
+                flex-col
+                w-full
+                md:w-[320px]
+                border-r
+                border-gray-300
+                bg-white
+            `}
+        >
 
-        <div className="flex md:block overflow-x-auto md:overflow-y-auto md:h-[80vh] px-2 md:px-0 gap-2 md:gap-0">
-          {suggestedUsers?.map((suggestedUser) => {
-            const isOnline = onlineUsers?.includes(suggestedUser?._id);
+            <h1 className="font-bold text-xl px-4 py-4">
+                {user?.username}
+            </h1>
 
-            return (
-              <div
-                key={suggestedUser._id}
-                onClick={() => dispatch(setSelectedUser(suggestedUser))}
-                className="flex-shrink-0 md:flex-shrink flex gap-3 items-center p-3 hover:bg-gray-50 cursor-pointer rounded-md"
-              >
-                <Avatar className="w-12 h-12 md:w-14 md:h-14">
-                  <AvatarImage src={suggestedUser?.profilePicture} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+            <hr className="border-gray-300" />
 
-                <div className="flex flex-col">
-                  <span className="font-medium text-sm md:text-base">
-                    {suggestedUser?.username}
-                  </span>
+            <div className="flex-1 overflow-y-auto px-2">
+                {
+                    suggestedUsers.map((suggestedUser) => {
+                        const isOnline = onlineUsers.includes(suggestedUser?._id);
 
-                  <span
-                    className={`text-xs font-bold ${
-                      isOnline ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {isOnline ? "online" : "offline"}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+                        return (
+                            <div
+                                key={suggestedUser?._id}
+                                onClick={() => dispatch(setSelectedUser(suggestedUser))}
+                                className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition
+                                    ${
+                                        selectedUser?._id === suggestedUser?._id
+                                            ? "bg-gray-100"
+                                            : "hover:bg-gray-50"
+                                    }`}
+                            >
+                                <Avatar className="w-12 h-12">
+                                    <AvatarImage src={suggestedUser?.profilePicture} />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
 
-      {/* CHAT AREA */}
-      {selectedUser ? (
-        <section className="flex-1 flex flex-col h-[100vh] md:h-full">
-          {/* HEADER */}
-          <div className="flex gap-3 items-center px-3 py-2 border-b border-gray-300 sticky top-0 bg-white z-10">
-            <Avatar>
-              <AvatarImage
-                src={selectedUser?.profilePicture}
-                alt="profile"
-              />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+                                <div className="flex flex-col">
+                                    <span className="font-medium">
+                                        {suggestedUser?.username}
+                                    </span>
 
-            <div className="flex flex-col">
-              <span className="text-sm md:text-base">
-                {selectedUser?.username}
-              </span>
+                                    <span
+                                        className={`text-xs ${
+                                            isOnline
+                                                ? "text-green-600"
+                                                : "text-gray-400"
+                                        }`}
+                                    >
+                                        {isOnline ? "Active now" : "Offline"}
+                                    </span>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
             </div>
-          </div>
-
-          {/* MESSAGES */}
-          <div className="flex-1 overflow-y-auto">
-            <Messages selectedUser={selectedUser} />
-          </div>
-
-          {/* INPUT */}
-          <div className="flex items-center p-3 md:p-4 border-t border-gray-300">
-            <Input
-              value={textMessage}
-              onChange={(e) => setTextMessage(e.target.value)}
-              type="text"
-              className="flex-1 mr-2 focus-visible:ring-transparent"
-              placeholder="Message..."
-            />
-
-            <Button
-              onClick={() => sendMessageHandler(selectedUser?._id)}
-            >
-              Send
-            </Button>
-          </div>
         </section>
-      ) : (
-        <div className="flex flex-col items-center justify-center w-full h-[70vh] md:h-full">
-          <MessageCircleCode className="w-20 h-20 md:w-32 md:h-32 my-4" />
 
-          <h1 className="font-medium">Your messages</h1>
+        {/* CHAT AREA */}
 
-          <span className="text-sm md:text-base">
-            Send a message to start a chat.
-          </span>
-        </div>
-      )}
+        {
+            selectedUser ? (
+                <section
+                    className={`
+                        flex
+                        flex-1
+                        flex-col
+                        h-full
+                        bg-white
+                    `}
+                >
+
+                    {/* HEADER */}
+
+                    <div className="flex items-center gap-3 h-16 px-4 border-b border-gray-300 bg-white shrink-0">
+
+                        <Avatar className="w-10 h-10">
+                            <AvatarImage
+                                src={selectedUser?.profilePicture}
+                                alt="profile"
+                            />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+
+                        <div className="flex flex-col">
+                            <span className="font-semibold">
+                                {selectedUser?.username}
+                            </span>
+
+                            <span
+                                className={`text-xs ${
+                                    onlineUsers.includes(selectedUser?._id)
+                                        ? "text-green-600"
+                                        : "text-gray-400"
+                                }`}
+                            >
+                                {onlineUsers.includes(selectedUser?._id)
+                                    ? "Active now"
+                                    : "Offline"}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    {/* MESSAGES */}
+
+                    <div className="flex-1 overflow-hidden">
+                        <Messages selectedUser={selectedUser} />
+                    </div>
+
+                    {/* INPUT */}
+
+                    <div className="flex items-center gap-3 p-4 border-t border-gray-300 bg-white shrink-0">
+
+                        <Input
+                            value={textMessage}
+                            onChange={(e) => setTextMessage(e.target.value)}
+                            onKeyDown={(e)=>{
+                                if(e.key==="Enter"){
+                                    sendMessageHandler(selectedUser._id);
+                                }
+                            }}
+                            type="text"
+                            placeholder="Message..."
+                            className="flex-1 rounded-full focus-visible:ring-transparent"
+                        />
+
+                        <Button
+                            className="rounded-full px-6"
+                            onClick={() =>
+                                sendMessageHandler(selectedUser?._id)
+                            }
+                        >
+                            Send
+                        </Button>
+
+                    </div>
+
+                </section>
+            ) : (
+                <div className="hidden md:flex flex-1 flex-col items-center justify-center">
+
+                    <MessageCircleCode className="w-24 h-24 text-gray-400 mb-4" />
+
+                    <h1 className="text-2xl font-semibold">
+                        Your messages
+                    </h1>
+
+                    <span className="text-gray-500 mt-2">
+                        Send a message to start a chat.
+                    </span>
+
+                </div>
+            )
+        }
+
     </div>
-  );
-};
+);
 
-export default ChatPage;
+}
+
+export default ChatPage

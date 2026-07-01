@@ -86,7 +86,7 @@ const Post = ({ post }) => {
         }
     }
     return (
-        <div className='my-8 w-full max-w-sm mx-auto overflow-hidden rounded-xl'>
+        <div className='my-8 w-full max-w-sm mx-auto '>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <Avatar>

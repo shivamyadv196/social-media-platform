@@ -150,18 +150,34 @@ export const editProfile = async (req, res) => {
 };
 export const getSuggestedUsers = async (req, res) => {
     try {
-        const suggestedUsers = await User.find({ _id: { $ne: req.id } }).select("-password");
-        if (!suggestedUsers) {
-            return res.status(400).json({
-                message: 'Currently do not have any users',
-            })
-        };
+        const currentUser = await User.findById(req.id);
+
+        if (!currentUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        const suggestedUsers = await User.find({
+            _id: {
+                $nin: [...currentUser.following, currentUser._id],
+            },
+        })
+            .select("-password")
+            .limit(10);
+
         return res.status(200).json({
             success: true,
-            users: suggestedUsers
-        })
+            users: suggestedUsers,
+        });
     } catch (error) {
         console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
     }
 };
 export const followOrUnfollow = async (req, res) => {
@@ -199,9 +215,75 @@ export const followOrUnfollow = async (req, res) => {
                 User.updateOne({ _id: followKrneWala }, { $push: { following: jiskoFollowKrunga } }),
                 User.updateOne({ _id: jiskoFollowKrunga }, { $push: { followers: followKrneWala } }),
             ])
-            return res.status(200).json({ message: 'followed successfully', success: true });
+            
+            return res.status(200).json({
+            success: true,
+            isFollowing: !isFollowing,
+            message: isFollowing
+                ? "Unfollowed successfully"
+                : "Followed successfully",
+        });
         }
     } catch (error) {
         console.log(error);
     }
-}
+};
+    export const getFollowers = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+            .populate({
+                path: "followers",
+                select: "-password"
+            });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            users: user.followers
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
+
+export const getFollowing = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+            .populate({
+                path: "following",
+                select: "-password"
+            });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            users: user.following
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};

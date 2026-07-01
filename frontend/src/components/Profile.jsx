@@ -6,23 +6,79 @@ import { useSelector } from 'react-redux';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { AtSign, Heart, MessageCircle } from 'lucide-react';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setAuthUser, setUserProfile } from "@/redux/authSlice";
+import FollowersFollowingDialog from "./FollowersFollowingDialog";
 
-const Profile = () => {
+  const Profile = () => {
   const params = useParams();
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
-
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogType, setDialogType] = useState("followers");
+  const dispatch = useDispatch();
   const { userProfile, user } = useSelector(store => store.auth);
-
+  
   const isLoggedInUserProfile = user?._id === userProfile?._id;
-  const isFollowing = false;
+  const isFollowing = user?.following?.includes(userProfile?._id);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   }
 
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : userProfile?.bookmarks;
+
+  const followOrUnfollowHandler = async () => {
+        try {
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/v1/user/followorunfollow/${userProfile._id}`,
+                {},
+                {
+                    withCredentials: true,
+                }
+            );
+
+            if (res.data.success) {
+                if (isFollowing) {
+                    dispatch(
+                        setAuthUser({
+                            ...user,
+                            following: user.following.filter(
+                                (id) => id !== userProfile._id
+                            ),
+                        })
+                    );
+
+                    dispatch(
+                        setUserProfile({
+                            ...userProfile,
+                            followers: userProfile.followers.filter(
+                                (id) => id !== user._id
+                            ),
+                        })
+                    );
+                } else {
+                    dispatch(
+                        setAuthUser({
+                            ...user,
+                            following: [...user.following, userProfile._id],
+                        })
+                    );
+
+                    dispatch(
+                        setUserProfile({
+                            ...userProfile,
+                            followers: [...userProfile.followers, user._id],
+                        })
+                    );
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
    return (
             <div className="w-full max-w-2xl mx-auto px-4 sm:px-6">
@@ -66,16 +122,23 @@ const Profile = () => {
                           </>
                         ) : isFollowing ? (
                           <>
-                            <Button variant="secondary" className="h-8">
-                              Unfollow
+                            <Button
+                                variant="secondary"
+                                className="h-8"
+                                onClick={followOrUnfollowHandler}
+                            >
+                                Unfollow
                             </Button>
                             <Button variant="secondary" className="h-8">
                               Message
                             </Button>
                           </>
                         ) : (
-                          <Button className="bg-[#0095F6] h-8">
-                            Follow
+                          <Button
+                              className="bg-[#0095F6] h-8"
+                              onClick={followOrUnfollowHandler}
+                           >
+                              Follow
                           </Button>
                         )}
                       </div>
@@ -88,18 +151,30 @@ const Profile = () => {
                           </span>{" "}
                           posts
                         </p>
-                        <p>
+                        <p
+                          onClick={() => {
+                            setDialogType("followers");
+                            setOpenDialog(true);
+                          }}
+                          className="cursor-pointer hover:underline"
+                        >
                           <span className="font-semibold">
                             {userProfile?.followers?.length || 0}
                           </span>{" "}
                           followers
                         </p>
-                        <p>
-                          <span className="font-semibold">
-                            {userProfile?.following?.length || 0}
-                          </span>{" "}
-                          following
-                        </p>
+                       <p
+                        onClick={() => {
+                          setDialogType("following");
+                          setOpenDialog(true);
+                        }}
+                        className="cursor-pointer hover:underline"
+                      >
+                        <span className="font-semibold">
+                          {userProfile?.following?.length || 0}
+                        </span>{" "}
+                        following
+                      </p>
                       </div>
 
                       {/* BIO */}
@@ -171,6 +246,12 @@ const Profile = () => {
 
                 </div>
               </div>
+              <FollowersFollowingDialog
+                open={openDialog}
+                setOpen={setOpenDialog}
+                type={dialogType}
+                userId={userProfile?._id}
+            />
             </div>
           );
 }

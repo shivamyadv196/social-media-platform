@@ -51,7 +51,6 @@ const LeftSidebar = () => {
     const sidebarItems = [
         { icon: <Home size={28} strokeWidth={2} />, text: "Home" },
         { icon: <Search size={28} strokeWidth={2} />, text: "Search" },
-        { icon: <TrendingUp size={28} strokeWidth={2} />, text: "Explore" },
         { icon: <MessageCircle size={28} strokeWidth={2} />, text: "Messages" },
         { icon: <Heart size={28} strokeWidth={2} />, text: "Notifications" },
         { icon: <PlusSquare size={28} strokeWidth={2} />, text: "Create" },
