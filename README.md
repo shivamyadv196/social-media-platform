@@ -1,21 +1,33 @@
-#  Social Media Platform
+# 🌐 Sosiafy - Social Media Platform
 
-A modern social media platform built with the MERN Stack featuring real-time messaging, notifications, post sharing, likes, comments, and profile management.
+A modern social media platform built with the MERN Stack featuring real-time messaging, notifications, post sharing, likes, comments, bookmarks, and profile management.
+
+---
+
+## 🚀 Live Demo
+
+🔗 Add Your Deployment Link Here
+
+---
 
 ## ✨ Features
 
-- User Authentication & Authorization
-- Create, Like & Comment on Posts
-- Real-Time Messaging
-- Real-Time Notifications
-- Profile Management
-- Bookmark Posts
-- Suggested Users
-- Responsive User Interface
+- 🔐 User Authentication & Authorization
+- 📝 Create, Like & Comment on Posts
+- 💬 Real-Time Messaging with Socket.IO
+- 🔔 Real-Time Notifications
+- 👤 Profile Management
+- 🔖 Bookmark Posts
+- 👥 Suggested Users
+- ☁️ Cloudinary Image Upload
+- 📱 Fully Responsive UI
 
-## 🛠 Tech Stack
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - Redux Toolkit
 - Tailwind CSS
@@ -24,29 +36,34 @@ A modern social media platform built with the MERN Stack featuring real-time mes
 - React Router DOM
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
 
 ### Tools & Services
+
 - Socket.IO
 - JWT Authentication
 - Cloudinary
+- Git & GitHub
+
+---
 
 ## 📂 Project Structure
 
 ```bash
-Chatify
+Sosiafy
 │
 ├── frontend
-│   ├── src
-│   │   ├── components
-│   │   ├── hooks
-│   │   ├── redux
-│   │   ├── lib
-│   │   └── utils
-│   └── public
+│   ├── public
+│   └── src
+│       ├── components
+│       ├── hooks
+│       ├── redux
+│       ├── lib
+│       └── utils
 │
 ├── backend
 │   ├── controllers
@@ -59,65 +76,131 @@ Chatify
 └── README.md
 ```
 
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the backend directory:
+
+```env
+PORT=
+
+DATABASE_URL=
+
+JWT_SECRET=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+CLIENT_URL=
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### Clone Repository
 
 ```bash
 git clone <repository-url>
-cd social media platform
+cd Sosiafy
 ```
 
 ### Install Dependencies
 
+#### Frontend
+
 ```bash
-# Frontend
 cd frontend
 npm install
+```
 
-# Backend
-cd ../backend
+#### Backend
+
+```bash
+cd backend
 npm install
 ```
 
-### Environment Setup
+---
 
-Create a `.env` file and configure the required environment variables.
+## ▶️ Run the Application
 
-```env
-PORT=
-DATABASE_URL=
-JWT_SECRET=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-CLIENT_URL=
-```
-
-### Run the Application
+### Start Backend
 
 ```bash
-# Backend
-npm run dev
-
-# Frontend
 npm run dev
 ```
+
+### Start Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔑 Core Functionalities
+
+✔ User Registration & Login
+
+✔ Create, Edit & Delete Posts
+
+✔ Like & Comment System
+
+✔ Bookmark Posts
+
+✔ Follow Suggested Users
+
+✔ Real-Time Chat
+
+✔ Instant Notifications
+
+✔ Profile Update & Management
+
+✔ Cloudinary Image Upload
+
+---
 
 ## 📸 Screenshots
 
-### Home Feed
-<img width="1890" height="990" alt="image" src="https://github.com/user-attachments/assets/4d5d11e2-63eb-46c6-9135-082480741477" />
+### 🏠 Home Feed
 
+<img width="100%" alt="Home Feed" src="YOUR_HOME_FEED_IMAGE_LINK">
 
-### User Profile
-<img width="1918" height="972" alt="image" src="https://github.com/user-attachments/assets/e3de291b-add9-4208-886f-82104d52a125" />
+### 👤 User Profile
 
+<img width="100%" alt="Profile" src="YOUR_PROFILE_IMAGE_LINK">
 
+### 💬 Real-Time Chat
 
+<img width="100%" alt="Chat" src="YOUR_CHAT_IMAGE_LINK">
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome.
+
+Feel free to fork the repository and create a pull request.
+
+---
+
+## ⭐ Support
+
+If you like this project, please give it a ⭐ on GitHub.
+
+---
 
 ## 👨‍💻 Developed By
 
-**Shivam Yadav**
+### Shivam Yadav
 
-Full Stack Developer
+Full Stack Developer (MERN Stack)
+
+📧 shivamyadv196@gmail.com
+
+💻 GitHub: https://github.com/shivamyadv196
+
+🔗 LinkedIn: https://linkedin.com/in/your-linkedin-profile
