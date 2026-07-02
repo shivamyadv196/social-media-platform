@@ -1,6 +1,5 @@
 │       ├── hooks
-│       ├── redux
-│       ├── lib
+│   
 │       └── utils
 │
 ├── backend
