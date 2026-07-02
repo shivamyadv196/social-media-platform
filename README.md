@@ -1,30 +1,44 @@
-# 🌐 Sosiafy - Social Media Platform
+# Sosiafy
 
 A modern social media platform built with the MERN Stack featuring real-time messaging, notifications, post sharing, likes, comments, bookmarks, and profile management.
 
----
+## Live Demo
 
-## 🚀 Live Demo
-
-🔗 Add Your Deployment Link Here
+**Live URL:** https://your-live-demo-link.com
 
 ---
 
-## ✨ Features
+## Screenshots
 
-- 🔐 User Authentication & Authorization
-- 📝 Create, Like & Comment on Posts
-- 💬 Real-Time Messaging with Socket.IO
-- 🔔 Real-Time Notifications
-- 👤 Profile Management
-- 🔖 Bookmark Posts
-- 👥 Suggested Users
-- ☁️ Cloudinary Image Upload
-- 📱 Fully Responsive UI
+### Home Feed
+
+![Home Feed](./screenshots/home-feed.png)
+
+### User Profile
+
+![User Profile](./screenshots/profile.png)
+
+### Real-Time Chat
+
+![Chat](./screenshots/chat.png)
 
 ---
 
-## 🛠️ Tech Stack
+## Features
+
+- User Authentication & Authorization
+- Create, Like & Comment on Posts
+- Real-Time Messaging
+- Real-Time Notifications
+- Profile Management
+- Bookmark Posts
+- Suggested Users
+- Cloudinary Image Upload
+- Responsive User Interface
+
+---
+
+## Tech Stack
 
 ### Frontend
 
@@ -42,7 +56,7 @@ A modern social media platform built with the MERN Stack featuring real-time mes
 - MongoDB
 - Mongoose
 
-### Tools & Services
+### Services & Tools
 
 - Socket.IO
 - JWT Authentication
@@ -51,7 +65,7 @@ A modern social media platform built with the MERN Stack featuring real-time mes
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 Sosiafy
@@ -78,9 +92,9 @@ Sosiafy
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
-Create a `.env` file in the backend directory:
+Create a `.env` file inside the backend directory and configure the following variables:
 
 ```env
 PORT=
@@ -98,109 +112,47 @@ CLIENT_URL=
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
-cd Sosiafy
+git clone https://github.com/your-username/sosiafy.git
+cd sosiafy
 ```
 
 ### Install Dependencies
 
-#### Frontend
-
 ```bash
+# Frontend
 cd frontend
 npm install
-```
 
-#### Backend
-
-```bash
-cd backend
+# Backend
+cd ../backend
 npm install
 ```
 
----
-
-## ▶️ Run the Application
-
-### Start Backend
+### Run Application
 
 ```bash
+# Backend
 npm run dev
-```
 
-### Start Frontend
-
-```bash
+# Frontend
 npm run dev
 ```
 
 ---
 
-## 🔑 Core Functionalities
+## Developed By
 
-✔ User Registration & Login
-
-✔ Create, Edit & Delete Posts
-
-✔ Like & Comment System
-
-✔ Bookmark Posts
-
-✔ Follow Suggested Users
-
-✔ Real-Time Chat
-
-✔ Instant Notifications
-
-✔ Profile Update & Management
-
-✔ Cloudinary Image Upload
-
----
-
-## 📸 Screenshots
-
-### 🏠 Home Feed
-
-<img width="100%" alt="Home Feed" src="YOUR_HOME_FEED_IMAGE_LINK">
-
-### 👤 User Profile
-
-<img width="100%" alt="Profile" src="YOUR_PROFILE_IMAGE_LINK">
-
-### 💬 Real-Time Chat
-
-<img width="100%" alt="Chat" src="YOUR_CHAT_IMAGE_LINK">
-
----
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome.
-
-Feel free to fork the repository and create a pull request.
-
----
-
-## ⭐ Support
-
-If you like this project, please give it a ⭐ on GitHub.
-
----
-
-## 👨‍💻 Developed By
-
-### Shivam Yadav
+**Shivam Yadav**
 
 Full Stack Developer (MERN Stack)
 
-📧 shivamyadv196@gmail.com
+Email: shivamyadv196@gmail.com
 
-💻 GitHub: https://github.com/shivamyadv196
+GitHub: https://github.com/shivamyadv196
 
-🔗 LinkedIn: https://linkedin.com/in/your-linkedin-profile
+LinkedIn: https://linkedin.com/in/your-linkedin-profile
