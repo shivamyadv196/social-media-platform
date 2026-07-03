@@ -115,6 +115,9 @@ export const getProfile = async (req, res) => {
 
 export const editProfile = async (req, res) => {
     try {
+        console.log("BODY =>", req.body);
+        console.log("FILE =>", req.file);
+
         const userId = req.id;
         const { bio, gender } = req.body;
         const profilePicture = req.file;
@@ -126,14 +129,22 @@ export const editProfile = async (req, res) => {
         }
 
         const user = await User.findById(userId).select('-password');
+
         if (!user) {
             return res.status(404).json({
                 message: 'User not found.',
                 success: false
             });
-        };
+        }
+
         if (bio) user.bio = bio;
-        if (gender) user.gender = gender;
+        if (
+       gender &&
+           gender !== "undefined" &&
+           ["male", "female"].includes(gender)
+          ) {
+          user.gender = gender;
+         }
         if (profilePicture) user.profilePicture = cloudResponse.secure_url;
 
         await user.save();
