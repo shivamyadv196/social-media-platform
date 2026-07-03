@@ -70,7 +70,7 @@ const LeftSidebar = () => {
             <div className='flex flex-col'>
                 <div className="px-6 pt-10 pb-8">
                     <h1 className="text-3xl font-bold tracking-tight">
-                        Sosiafy
+                        Sosiofy
                     </h1>
                 </div>
                 <div className="flex flex-col gap-1 px-3">
