@@ -136,10 +136,18 @@ const Post = ({ post }) => {
                         liked ? <FaHeart onClick={likeOrDislikeHandler} size={'24'} className='cursor-pointer text-red-600' /> : <FaRegHeart onClick={likeOrDislikeHandler} size={'22px'} className='cursor-pointer hover:text-gray-600' />
                     }
 
-                    <MessageCircle onClick={() => {
-                        dispatch(setSelectedPost(post));
-                        setOpen(true);
-                    }} className='cursor-pointer hover:text-gray-600' />
+                    <div
+  className="flex items-center gap-1 cursor-pointer"
+  onClick={() => {
+    dispatch(setSelectedPost(post));
+    setOpen(true);
+  }}
+>
+  <MessageCircle className="hover:text-gray-600" />
+  <span className="text-sm font-medium">
+    {comment?.length || 0}
+  </span>
+</div>
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
                 <Bookmark onClick={bookmarkHandler} className='cursor-pointer hover:text-gray-600' />
