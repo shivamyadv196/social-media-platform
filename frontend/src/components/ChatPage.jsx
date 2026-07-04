@@ -119,7 +119,7 @@ const ChatPage = () => {
 
                     {/* HEADER */}
 
-                    <div className="flex items-center gap-3 h-16 px-4 border-b border-gray-300 bg-white shrink-0">
+                    <div className="flex items-center gap-3 h-16 pl-20 pr-4 border-b border-gray-300 bg-white shrink-0">
 
                         <Avatar className="w-10 h-10">
                             <AvatarImage
