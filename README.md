@@ -137,23 +137,21 @@ npm run dev
 
 ### 🏠 Home Feed
 
-<img width="100%" alt="Home Feed" src="https://github.com/user-attachments/assets/4d5d11e2-63eb-46c6-9135-082480741477" />
+<img width="1907" height="976" alt="Screenshot 2026-07-05 064421" src="https://github.com/user-attachments/assets/d607f242-033d-417a-9307-fae9fa4af01e" />
+
 
 ### ❤️ Posts, Likes & Comments
 
-<img width="100%" alt="Posts" src="YOUR_SCREENSHOT_LINK" />
+<img width="1911" height="977" alt="Screenshot 2026-07-05 064406" src="https://github.com/user-attachments/assets/894a1714-9ebc-4c72-8a8e-62a0088e9b30" />
+
 
 ### 💬 Real-Time Messaging
+<img width="1905" height="1030" alt="Screenshot 2026-07-05 065034" src="https://github.com/user-attachments/assets/0385f253-f2ca-4997-a968-a44df226461d" />
 
-<img width="100%" alt="Chat System" src="YOUR_CHAT_SCREENSHOT_LINK" />
 
 ### 👤 User Profile
 
-<img width="100%" alt="User Profile" src="https://github.com/user-attachments/assets/e3de291b-add9-4208-886f-82104d52a125" />
-
-### 🔔 Notifications & Suggested Users
-
-<img width="100%" alt="Notifications" src="YOUR_NOTIFICATION_SCREENSHOT_LINK" />
+<img width="1907" height="978" alt="Screenshot 2026-07-05 064439" src="https://github.com/user-attachments/assets/df7f83ca-cdfa-4af7-9bd4-a279b7084e52" />
 
 ---
 
